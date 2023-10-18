@@ -2,47 +2,63 @@ import numpy as np
 from scipy.integrate import solve_ivp
 
 
-class BolusModel:
-    def __init__(self, number_of_p_compartments,initial_values):
+class PKModel:
+    def __init__(self, dosing_type, number_of_p_compartments,initial_values):
+        self.dosing_type = dosing_type
         self.p_compartmemts = number_of_p_compartments
         self.initial_values = initial_values
 
     def __str__(self):
-        return 'This is a PK model for intravenous bolus dosing with '+ f'{self.p_compartmemts} peripheral compartment(s)'
+        if self.dosing_type == 'Bolus':
+            return 'This is a PK model for intravenous bolus dosing with '+ f'{self.p_compartmemts} peripheral compartment(s)'
+        elif self.dosing_type =='Subcutaneous': 
+            return 'This is a PK model for subcutaneous dosing with '+ f'{self.p_compartmemts} peripheral compartment(s)'
+        else:
+            raise ValueError('We do not have this type of dosing in this libaray')
 
-    def ODE(self, t, q, transition_rate, elimination_rate, volume_c, volume_q):
-    #def ODE(self, t, transition_rate, elimination_rate, volume_c, volume_q):
-        qc, *qp = q 
-        dosing_protocol = 0 # get dosing protocol from another .py file
+    def ODE(self, t, q, dosing_protocol, transition_rate, elimination_rate, volume_c, volume_q, absorbed):
+        if self.dosing_type == 'Bolus':
+            qc, *qp = q 
+            input = dosing_protocol
+        elif self.dosing_type  == 'Subcutaneous':
+            q0, qc, *qp = q 
+            input = absorbed*q0
+        else:
+            raise ValueError('We do not have this type of dosing in this libaray')
+        
         density_difference = [qc/volume_c - p/volume_q for p in qp]
         flux = [k*diff for k, diff in zip(transition_rate, density_difference)]
 
         dq_dt = [0.0]*len(q)
 
-        # calculate for the cental compartment
-        dq_dt[0] = dosing_protocol - elimination_rate*qc - np.sum(flux)
+        if self.dosing_type == 'Bolus':
+            # calculate for the cental compartment
+            dq_dt[0] = dosing_protocol - elimination_rate*qc - np.sum(flux)
 
-        # calculate for the peripheral compartments
+            # calculate for the peripheral compartments
         
-        for i in range(len(transition_rate)):
-            dq_dt[i+1] = flux[i]
+            for i in range(len(transition_rate)):
+                dq_dt[i+1] = flux[i]
+
+        elif self.dosing_type  == 'Subcutaneous':
+            #calculate for the additional compartment from which te drug is absrobed to the central c
+            dq_dt[0] = dosing_protocol- input
+            # calculate for the cental compartment
+            dq_dt[1] = input- elimination_rate*qc - np.sum(flux)
+            # calculate for the peripheral compartments
         
+            for i in range(len(transition_rate)):
+                dq_dt[i+2] = flux[i]
         
         return dq_dt
     
     # use another separat.py file to solve the ODE?
-    def solve_ODE(self, initial_values, transition_rate, elimination_rate, volume_c, volume_q, t_span, t_eval):
+    def solve_ODE(self, initial_values, dosing_protocol, transition_rate, elimination_rate, volume_c, volume_q, t_span, t_eval, absorbed = None):
         solution = solve_ivp(
-            fun = lambda t, q: self.ODE(t,q, transition_rate, elimination_rate, volume_c, volume_q), 
+            fun = lambda t, q: self.ODE(t,q, dosing_protocol, transition_rate,  elimination_rate, volume_c, volume_q, absorbed), 
             t_span = t_span,
             y0 = initial_values, 
             t_eval = t_eval)
         
         return solution.y
 
-class SubcutaneousModel:
-    def __init__(self, number_of_p_compartments):
-        self.p_compartmemts = number_of_p_compartments
-
-    def __str__(self, number_of_compartments):
-        return 'This is a PK model for subcutaneous dosing with '+ f'{self.p_compartmemts} peripheral compartment(s)'
