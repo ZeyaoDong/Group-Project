@@ -14,13 +14,14 @@ class BolusModel:
     #def ODE(self, t, transition_rate, elimination_rate, volume_c, volume_q):
         qc, *qp = q 
         dosing_protocol = 0 # get dosing protocol from another .py file
-        density_difference = [qc/volume_c - p/volume_q for p in qp]
-        flux = [k*diff for k, diff in zip(transition_rate, density_difference)]
+        conc_difference = [qc/volume_c - p/volume_q for p in qp] #Defining difference in concentration of drug between central compartments and all peripheral compartments
+        flux = [k*diff for k, diff in zip(transition_rate, conc_difference)] #Defining flux allowing for multiple peripheral compartments 
+
 
         dq_dt = [0.0]*len(q)
 
-        # calculate for the cental compartment
-        dq_dt[0] = dosing_protocol - elimination_rate*qc - np.sum(flux)
+        # calculate for the central compartment
+        dq_dt[0] = dosing_protocol - elimination_rate*qc/volume_c - np.sum(flux)
 
         # calculate for the peripheral compartments
         
