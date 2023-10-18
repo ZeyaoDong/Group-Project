@@ -26,7 +26,7 @@ class PKModel:
         else:
             raise ValueError('We do not have this type of dosing in this libaray')
         
-        density_difference = [qc/volume_c - p/volume_q for p in qp]
+        density_difference = [qc/volume_c - p/v_q for p, v_q in zip(qp, volume_q)]
         flux = [k*diff for k, diff in zip(transition_rate, density_difference)]
 
         dq_dt = [0.0]*len(q)
