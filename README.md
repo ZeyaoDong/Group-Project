@@ -7,11 +7,11 @@ You can install `pkmodel` using pip:
 
 ```bash
 pip install pkmodel
------
+```
+------
 
 ## Usage: here is an example of how to use pkmodel
 
------
 
 ## Contact
 For any questions, bug reports, or feature requests, feel free to contact the project maintainer:
