@@ -36,23 +36,23 @@ class PKModel:
             dq_dt[0] = input - elimination_rate*qc - np.sum(flux)
 
             # calculate for the peripheral compartments
-        
             for i in range(len(transition_rate)):
                 dq_dt[i+1] = flux[i]
 
         elif self.dosing_type  == 'Subcutaneous':
             #calculate for the additional compartment from which te drug is absrobed to the central c
             dq_dt[0] = dosing_protocol(t)- input
+            
             # calculate for the cental compartment
             dq_dt[1] = input- elimination_rate*qc - np.sum(flux)
+            
             # calculate for the peripheral compartments
-        
             for i in range(len(transition_rate)):
                 dq_dt[i+2] = flux[i]
         
         return dq_dt
     
-    # use another separat.py file to solve the ODE?
+
     def solve_ODE(self, initial_values, dosing_protocol, transition_rate, elimination_rate, volume_c, volume_q, t_span, t_eval, absorbed = None):
         solution = solve_ivp(
             fun = lambda t, q: self.ODE(t,q, dosing_protocol, transition_rate,  elimination_rate, volume_c, volume_q, absorbed), 
