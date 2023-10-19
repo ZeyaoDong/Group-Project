@@ -18,4 +18,5 @@ For any questions, bug reports, or feature requests, feel free to contact the pr
 Name:
 Email Address:
 ------
-
+## Visualiser
+The visuliser.py file is a separate python file for visulisation. It can be imported as a function in this library. 
