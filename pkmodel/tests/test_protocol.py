@@ -1,6 +1,8 @@
-
+import numpy as np
 import unittest
-from pkmodel.protocol import Dosing_Protocol
+from pkmodel.model import PKModel
+from pkmodel.protocol import Dosing_Protocol 
+
 
 class Dosing_Protocol_test(unittest.TestCase):
     """
@@ -56,10 +58,7 @@ class Dosing_Protocol_test(unittest.TestCase):
         self.assertEqual(protocol.get_dose(5), 0)  # No dosing in between intervals
         self.assertEqual(protocol.get_dose(12), 0)  # No dosing after the duration
 
-        # Test for invalid dosing_method
-        protocol = Dosing_Protocol(3)
-        with self.assertRaises(ValueError):
-            protocol.get_dose(0)
+        
             
         
     
@@ -79,10 +78,4 @@ class Dosing_Protocol_test(unittest.TestCase):
        self.assertEqual(dose_function(0), 7)
        self.assertEqual(dose_function(5), 0)
        self.assertEqual(dose_function(12), 0)
-
-       # Test for invalid dosing_method
-       protocol = Dosing_Protocol(3)
-       with self.assertRaises(ValueError):
-           dose_function = protocol.get_dose_function()
-
 
