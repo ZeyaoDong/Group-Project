@@ -15,7 +15,7 @@ class ModelTest(unittest.TestCase):
         dosing_function = Dosing_Protocol(dosing_method = 1, dose_amount = 0, interval = 0) # try no dosing
 
         transition_constant = [0.1] 
-        clearnace_rate = 0.05  
+        clearance_rate = 0.05  
         volume_c = 1  
         volume_p = [1] 
         t_span = (0, 10) 
