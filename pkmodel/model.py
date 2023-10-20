@@ -88,3 +88,18 @@ class PKModel:
         return solution.y  
         # for the 'Bolus' type: solution[0,:] represents the drug quantity in central compartments; solution[i,:] represents the drug quantity in the ith peripheral compartment.
         # for the 'Sub' type: solution[0,:] represents the drug quantity in the absorption compartment; solution[1,:] represents the drug quantity in central compartments; the other dimensions represent that in the peripheral compartments.
+# These are the pharmacokinetic metrics
+def calculate_Cmax(C1):
+    return np.max(C1)
+
+def calculate_Vd(C1_0, V1, Cmax):
+    return (C1_0 * V1) / Cmax
+
+def calculate_Tmax(t, C1):
+    return t[np.argmax(C1)]
+
+def calculate_Bioavailability(AUC_sub, AUC_IV):
+    return AUC_sub / AUC_IV
+
+def calculate_HalfLife(k10):
+    return 0.693 / k10
