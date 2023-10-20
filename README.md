@@ -12,24 +12,17 @@ Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK
 
 
 ## Features
-#### Supports PK models with multi-compartments
-#### Outputs drug quantity over time in different compartments
-#### Visualize drug quantity/concentration over time in different compartment
-#### Can be used to calculate the following variables:
-+ Maximum cooncentration- Cmax
-+ Time to reach Cmax
-+ Minimum concentration- Cmin
-+ Volume of distribution
-+ CLearance at steady state- CLss
-+ Bioavailability- F
-+ Steady state concentration- Css
++ Supports PK models with multi-compartments
++ Outputs drug quantity over time in different compartments
++ Visualize drug quantity over time in different compartment
 
 
 # Installation
-You can install `pkmodel` using pip:
+Clone this repository to you local computer. You can install `pkmodel` using pip:
 
 ```bash
-pip install pkmodel
+cd PKmodel-library
+pip install ./
 ```
 ------
 
