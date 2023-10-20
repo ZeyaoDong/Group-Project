@@ -1,6 +1,3 @@
-#
-# Protocol class
-#
 
 class Dosing_Protocol:
     def __init__(self, dosing_method, dose_amount=0, interval=0, duration=0):

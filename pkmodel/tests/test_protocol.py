@@ -1,3 +1,4 @@
+
 import unittest
 import pkmodel as pk
 from pkmodel.protocol import Dosing_Protocol
@@ -84,4 +85,5 @@ class Dosing_Protocol_test(unittest.TestCase):
        protocol = pk.Dosing_Protocol(3)
        with self.assertRaises(ValueError):
            dose_function = protocol.get_dose_function()
+
 

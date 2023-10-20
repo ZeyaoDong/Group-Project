@@ -7,11 +7,7 @@ from setuptools import setup, find_packages
 def get_version():
     """
     Get version number from the pkmodel module.
-
-    The easiest way would be to just ``import pkmodel ``, but note that this may
-    fail if the dependencies have not been installed yet. Instead, we've put
-    the version number in a simple version_info module, that we'll import here
-    by temporarily adding the oxrse directory to the pythonpath using sys.path.
+    
     """
     import os
     import sys
@@ -39,13 +35,13 @@ setup(
     # Version
     version=get_version(),
 
-    description='An example Python project.',
+    description='A Python library for solving PK model',
 
     long_description=get_readme(),
 
     license='MIT license',
 
-    # author='',
+    # author='King, Ryan, Tom, Zeyao',
 
     # author_email='',
 
@@ -53,7 +49,7 @@ setup(
 
     maintainer_email='martin.robinson@cs.ox.ac.uk',
 
-    url='https://github.com/SABS-R3/2020-software-engineering-projects-pk',
+    url='https://github.com/ZeyaoDong/Group-Project.git',
 
     # Packages to include
     packages=find_packages(include=('pkmodel', 'pkmodel.*')),
