@@ -16,7 +16,8 @@ PKModel Class
 
 The core component of `pkmodel` is the `PKModel` class, which allows you to define and solve PK models.
 
-## pkmodel.PKModel(dosing_type, number_of_p_compartments, initial_values)
+pkmodel.PKModel(dosing_type, number_of_p_compartments, initial_values)
+~~~~~~~~~~~~~~~~~~~~~~~
 
 You can create a PK model by instantiating the `PKModel` class. This class constructor takes the following parameters:
 
@@ -26,7 +27,8 @@ You can create a PK model by instantiating the `PKModel` class. This class const
 
 **Caution**: The `initial_values` parameter should be a list. For 'Bolus' dosing, the first value should represent the initial quantity in the central compartment, and the rest should represent the peripheral compartments. For 'Subcutaneous' dosing, the first value should represent the initial quantity in the absorption part, the second value the central compartment, and the rest the peripheral compartments.
 
-## pkmodel.PKModel.ODE(t, q, *args)
+pkmodel.PKModel.ODE(t, q, *args)
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once you've created a PK model, you can specify the parameters that define the PK model and obtain the time derivatives of each compartment.
 
@@ -36,7 +38,8 @@ Once you've created a PK model, you can specify the parameters that define the P
 
 The protocol function is imported from another module called `protocol`, where you can specify the dosing method, time steps, and dosing amounts. See Section protocol for more details.
 
-## pkmodel.PKModel.solve_ODE(*args)
+pkmodel.PKModel.solve_ODE(*args)
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 To solve the PK model, use the `solve_ODE` method. It returns a solution with dimensions `(number_of_compartments, number_of_time_steps)`. In the first dimension (`solution[i, :]`), you can observe the temporal changes in drug quantity in each compartment, corresponding to the order of your initial values.
 
@@ -44,7 +47,14 @@ To solve the PK model, use the `solve_ODE` method. It returns a solution with di
 
 protocol
 ----------
+The `protocol` module is for specifying dosing protocols.
 
+- `dosing_method`:  dosing_method == 1 'Single, time-independent administration', dosing_method == 2 'Repeated administration at equal intervals'.
+- `dosing_amount`: the quantity of drug you want to dose.
+- `interval`: only valid for dosing_method == 2, defining the time interval for repeated administration
+- `duration`: only valid for dosing_method == 2, defining the time span for repeated administration
+
+The input to set up and solve a PKModel can be obtained by calling a sub-defined function `.get_dosing_function()`, which is a function of dosing quantity with time.
 
 
 Visualizer
