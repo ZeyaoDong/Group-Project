@@ -54,7 +54,7 @@ The `protocol` module is for specifying dosing protocols.
 - `interval`: default = 0, only valid to be an integer for dosing_method == 2, defining the time interval for repeated administration
 - `duration`: default = 0, only valid to be an integer for dosing_method == 2, defining the time span for repeated administration
 
-The input to set up and solve a PKModel can be obtained by calling a sub-defined function `.get_dosing_function()`, which is a function of dosing quantity with time.
+The input to set up and solve a PKModel can be obtained by calling a sub-defined function `.get_dose_function()`, which is a function of dosing quantity with time.
 
 
 Visualizer
