@@ -29,6 +29,7 @@ pip install pkmodel
 ------
 
 # Usage: here is an example of how to use pkmodel
+```bash
 import numpy as np
 import matplotlib.plt as plt
 from scipy.integrate import solve_ivp
@@ -49,7 +50,7 @@ quantity = model.solve_ODE(initial_values, dosing_function.get_dose_function(), 
 
 p =visualize(model = model, solution = quantity, t_eval = t_eval) # plot the solutions for all compartments with detailed labels
 p.savefig('test_visualization.png')/p.show() #save or show this figure. 
-
+```
 
 
 # Contact
