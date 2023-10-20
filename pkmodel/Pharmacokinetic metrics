@@ -1,14 +1,15 @@
+
 def calculate_Cmax(C1):
     return np.max(C1)
 
 def calculate_Vd(C1_0, V1, Cmax):
-    return (C1_0 * V1) / Cmax
+    return (C1_0 * V1) / Cmax # Concentration of drug at time 0
 
 def calculate_Tmax(t, C1):
-    return t[np.argmax(C1)]
+    return t[np.argmax(C1)] # Time to reach maximum concentration
 
 def calculate_Bioavailability(AUC_sub, AUC_IV):
-    return AUC_sub / AUC_IV
+    return AUC_sub / AUC_IV # AUC of subcutanteous over AUC of IV, F in this situation is a ratio. Experimentally, a score lower than one means first pass metabolisms or incomplete absorption
 
-def calculate_HalfLife(k10):
-    return 0.693 / k10
+def calculate_HalfLife(k1->0):
+    return 0.693 / k1->0 # standard half life equation, k1->0 is the rate constant of elimination out of compartment 1
