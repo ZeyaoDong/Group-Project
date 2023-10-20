@@ -58,7 +58,7 @@ p =visualize(model = model, solution = quantity, t_eval = t_eval) # plot the sol
 p.savefig('test_visualization.png')/p.show() #save or show this figure. 
 ```
 ### Documentation
-For detailed instructions on modules and functions, please see our document: https://pkmodel-library.readthedocs.io/en/latest/
+For detailed instructions on modules and functions, please see our documentation: https://pkmodel-library.readthedocs.io/en/latest/
 
 
 # Contact
