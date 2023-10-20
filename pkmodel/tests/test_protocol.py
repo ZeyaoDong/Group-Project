@@ -31,9 +31,9 @@ class Dosing_Protocol_test(unittest.TestCase):
             protocol = Dosing_Protocol(2, 3, -4, 5) # A negative interval time should raise a value error.
         with self.assertRaises(ValueError):
             protocol = Dosing_Protocol(2, 3, 4, -5) # A negative duration time for drug administration should raise a value error.
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             protocol = Dosing_Protocol(1, 2, 3) # A non-zero interval time for dosing method 1 should raise a type error.
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             protocol = Dosing_Protocol(1, 2, 0, 4) # A nonzero duration time for drug administration for dosing method 1 should raise a type error.
         with self.assertRaises(ValueError):
             protocol = Dosing_Protocol(3, 4, 5, 6) # Any value other than 1 or 2 for the dosing method should raise a value error.

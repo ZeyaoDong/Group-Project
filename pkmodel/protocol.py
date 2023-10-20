@@ -10,11 +10,11 @@ class Dosing_Protocol:
         if interval < 0:
             raise ValueError("Time interval for drug adminitration must be positive")
         if interval != 0 and dosing_method == 1:
-            raise TypeError("For dosing method 1, no interval argument is needed")
+            raise ValueError("For dosing method 1, no interval argument is needed")
         if duration < 0:
             raise ValueError("Time duration for dosing method 2 has to be positive")
         if duration != 0 and dosing_method == 1:
-            raise TypeError("For dosing method 1, no duration argument is needed")
+            raise ValueError("For dosing method 1, no duration argument is needed")
             
 
     def get_dose(self, t):
