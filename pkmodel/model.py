@@ -28,8 +28,11 @@ class PKModel:
             self.clearance_rate = float(clearance_rate)
         else:
             raise ValueError("Clearance rate must be greater or equal to zero.")
-        if absorption_constant >= 0:
-            self.absorption_constant = float(absorption_constant)
+        if  absorption_constant != None:
+            if absorption_constant >= 0:
+                self.absorption_constant = float(absorption_constant)
+        elif  absorption_constant == None:
+            self.absorption_constant = None
         else:
             raise ValueError("Absorption constant must be greater or equal to zero.")
             
