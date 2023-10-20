@@ -64,7 +64,7 @@ p.savefig('test_visualization.png')/p.show() #save or show this figure.
 For any questions, bug reports, or feature requests, feel free to contact:
 King Ifashe, email: ifasheking@gmail.com
 Ryan Demel, email: rdemel99@gmail.com
-Tom Wise, email:
+Thomas Wise, email: thomaskennedywise@outlook.com
 Zeyao Dong, email: zeyao.dong@jesus.ox.ac.uk
 
 ------
