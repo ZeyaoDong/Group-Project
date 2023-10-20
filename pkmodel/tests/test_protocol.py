@@ -1,6 +1,6 @@
 import unittest
 import pkmodel as pk
-
+from pkmodel.protocol import Dosing_Protocol
 
 class Dosing_Protocol_test(unittest.TestCase):
     """
