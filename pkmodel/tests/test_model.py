@@ -1,6 +1,7 @@
 import numpy as np
 import unittest
-from pkmodel import PKModel, Dosing_Protocol 
+from pkmodel.model import PKModel
+from pkmodel.protocol import Dosing_Protocol 
 
 class ModelTest(unittest.TestCase):
     def test_bolus_model(self):
