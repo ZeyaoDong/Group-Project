@@ -2,6 +2,16 @@
 Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK) models. It allows users to specify dosing types (Bolus or Subcutaneous), dosing protocols, and customize the number of compartments to suit their needs.
 -----
 # Details
+
+##Table of contents
+-[pkmodel.PKModel]
+-[pkmodel.PKModel.ODE]
+-[visualiser]
+-[Features]
+-[Installation]
+-[Contact]
+
+
 ## pkmodel.PKModel(dosing_type, number_of_p_compartments,initial_values)
 You can specify the basic form of a PK model by defining the type of dosing (Bolus or Subscutaneous), the number of peripheral compartments which have two-side transitions with the central compartment, and the initial quantity of drug in each compartments including the central, peripheral compartments (for 'Subscutaneous', also include the initial quantity in the absorption part)
 Caution: the input of initial values should be a list. For 'Bolus' dosing, the first value should represent the initial quantity in the central compartment, the other should represent the peripheral compartments. For 'Subscutaneous' dosing, the first value should represent the initial quantity in the part from which the drug is absorbed to the central compartment, the second value should represent the central one, and the other should represent the peripheral ones. 
@@ -18,6 +28,18 @@ This is used to solve the PK model you just defined. The solution will have a di
 ## visualiser
 The visuliser.py file is a separate python file for visulisation. It can be imported as a function in this library. The required inputs include the defined PK model, the corresponding solutions, and time. 
 It will return 'plt' which allows the users to further change the configuration of this figure for any specific needs.
+
+##Features
+Supports one-compartment and two-compartment models
+Outputs drug concentration over time in different compartments
+Can be used to calculate the following variables:
++ Maximum cooncentration- Cmax
++ Time to reach Cmax
++ Minimum concentration- Cmin
++ Volume of distribution
++ CLearance at steady state- CLss
++ Bioavailability- F
++ Steady state concentration- Css
 
 
 # Installation
