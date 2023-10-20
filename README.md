@@ -7,7 +7,6 @@ Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK
 -[Features](#Features)
 -[Installation](#Installation)
 -[Usage](#Usage)
--[License](#License)
 -[Contact](#Contact)
 
 
@@ -19,10 +18,11 @@ Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK
 
 
 # Installation
-You can install `pkmodel` using pip:
+Clone this repository to your own computer and then you can install `pkmodel` using pip:
 
 ```bash
-pip install pkmodel
+cd Group-Project/
+pip install ./
 ```
 ------
 
