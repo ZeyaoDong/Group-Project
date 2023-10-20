@@ -1,14 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def visualize(model, solution, t_eval):
+def visualize(model, solution, t_eval, key = 'q'):
     #Create a list of compartment names for labeling. The first is always 'Central'.
     compartments = ['Central'] + [f'Peripheral-{i+1}' for i in range(model.p_compartmemts)]
     
     #If the dosing type is 'Subcutaneous', it means there's an extra 'Absorption' compartment.
     if model.dosing_type == 'Subcutaneous':
         compartments = ['Absorption'] + compartments  # Prepend 'Absorption' to the compartment list.
-
+    
     plt.figure()
     #Loop through each compartment and plot its drug concentration over time.
     for i, comp in enumerate(compartments):
