@@ -50,14 +50,14 @@ class Dosing_Protocol_test(unittest.TestCase):
         self.assertEqual(protocol.get_dose(5), 0)  # No dosing after t = 0
 
         # Test Dosing_protocol with dosing_method 2
-        protocol = pk.Dosing_Protocol(2, 7, 3, 10)  # Repeated administration at intervals
+        protocol = Dosing_Protocol(2, 7, 3, 10)  # Repeated administration at intervals
         # Dosing at t=0, t=3, t=6, t=9 (up to duration of 10)
         self.assertEqual(protocol.get_dose(0), 7)
         self.assertEqual(protocol.get_dose(5), 0)  # No dosing in between intervals
         self.assertEqual(protocol.get_dose(12), 0)  # No dosing after the duration
 
         # Test for invalid dosing_method
-        protocol = pk.Dosing_Protocol(3)
+        protocol = Dosing_Protocol(3)
         with self.assertRaises(ValueError):
             protocol.get_dose(0)
             
