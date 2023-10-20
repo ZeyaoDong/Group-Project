@@ -1,82 +1,89 @@
 import numpy as np
 from scipy.integrate import solve_ivp
+from protocol import Dosing_Protocol
+from typing import List 
 
-
-# model setup (the users can specify dosing type, the number of compartments, and the initial values of drug quantity in each compartments)
 class PKModel:
-    def __init__(self, dosing_type, number_of_p_compartments,initial_values):
+    def __init__(self, dosing_type, number_of_p_compartments, initial_values, dosing_protocol):
         self.dosing_type = dosing_type
-        self.p_compartmemts = number_of_p_compartments
+        self.p_compartments = number_of_p_compartments
         self.initial_values = initial_values
+        self.dosing_protocol = Dosing_Protocol(dosing_method, dose_amount, interval, duration)
 
-    # to print out the model setup to check if the library works well
+        
+            
     def __str__(self):
         if self.dosing_type == 'Bolus':
-            return 'This is a PK model for intravenous bolus dosing with '+ f'{self.p_compartmemts} peripheral compartment(s)'
-        elif self.dosing_type =='Subcutaneous': 
-            return 'This is a PK model for subcutaneous dosing with '+ f'{self.p_compartmemts} peripheral compartment(s)'
-        else:
-            raise ValueError('We do not have this type of dosing in this libaray') # just in case the users want to solve another type of dosing
-
-    # define the differential equation for a particular type of dosing
-    def ODE(self, t, q, dosing_protocol, transition_rate, elimination_rate, volume_c, volume_q, absorbed):
-        if volume_c > 0 and all(v > 0 for v in volume_q):
-            self.volume_c = float(volume_c)
-            self.volume_q = list(map(float(volume_q)))
-        else:
-            raise ValueError("The volume of the compartments must be positive.")
-        if transition_rate >= 0:
-            self.transition_rate = float(transition_rate)
-        else:
-            raise ValueError("Transition rate must be greater or equal to zero.")
-        if elimination_rate >= 0:
-            self.elimination_rate = float(elimination_rate)
-        else:
-            raise ValueError("Elimination rate must be greater or equal to zero.")
-        if self.dosing_type == 'Bolus':
-            qc, *qp = q 
-            input = dosing_protocol # input means the direct input of drug to the central compartment, it differs from 'Bolus' to 'Sub' due to an additional absorption
-        elif self.dosing_type  == 'Subcutaneous':
-            q0, qc, *qp = q 
-            input = absorbed*q0 # as described above
+            if self.dosing_protocol.dosing_method == 1: 
+                return f'This is a PK model for a single intravenous bolus dose with {self.p_compartments} peripheral compartment(s)'
+            if self.dosing_protocol.dosing_method == 2:
+                return f'This is a PK model for a multiple intravenous bolus doses over a time period self.dosing_protocol.duration with doses being administered in self.dosing_protocol.interval time intervals (in hours) with {self.p_compartments} peripheral compartment(s)'
+            else:
+                raise ValueError("Dosing method unspecified or invalid")
+        elif self.dosing_type == 'Subcutaneous':
+            if self.dosing_protocol.dosing_method == 1: 
+                return f'This is a PK model for a single subcutaneous dose with {self.p_compartments} peripheral compartment(s)'
+            if self.dosing_protocol.dosing_method == 2:
+                return f'This is a PK model for a multiple ubcutaneous doses over a time period self.dosing_protocol.duration with doses being administered in self.dosing_protocol.interval time intervals (in hours) with {self.p_compartments} peripheral compartment(s)'
+            else:
+                raise ValueError("Dosing method unspecified or invalid")
         else:
             raise ValueError('We do not have this type of dosing in this library')
 
-        # calculate the transition flux in each central-peripheral pair
-        density_difference = [qc/volume_c - p/v_q for p, v_q in zip(qp, volume_q)]
-        flux = [k*diff for k, diff in zip(transition_rate, density_difference)] 
-
-        # create a space to store dq/dt according to the dimension (length) of q, i.e., how many compartments we need to solve at the same time
-        dq_dt = [0.0]*len(q)
-
-        # define the specific differential equations for each type of dosing
+    def ODE(self, t: float, q: List[float], transition_constant: List[float], clearance_rate: float, volume_c: float, volume_p: List[float], absorption_constant: float):
+        if volume_c > 0 :
+             self.volume_c = float(volume_c)
+        # Need to input the same constraint on volume_p as above but allowing for multiple values of volume_p for each compartment
+        if clearance_rate >= 0:
+            self.clearance_rate = float(clearance_rate)
+        else:
+            raise ValueError("Clearance rate must be greater or equal to zero.")
+        if absorption_constant >= 0:
+            self.absorption_constant = float(absorption_constant)
+        else:
+            raise ValueError("Absorption constant must be greater or equal to zero.")
+            
         if self.dosing_type == 'Bolus':
-            # calculate for the cental compartment
-            dq_dt[0] = dosing_protocol - elimination_rate*qc/volume_c - np.sum(flux)
-
-            # calculate for the peripheral compartments
-            for i in range(len(transition_rate)):
-                dq_dt[i+1] = flux[i]
-
-        elif self.dosing_type  == 'Subcutaneous':
-            #calculate for the additional compartment from which te drug is absrobed to the central c
-            dq_dt[0] = dosing_protocol- input
-            
-            # calculate for the cental compartment
-            dq_dt[1] = input- elimination_rate*qc - np.sum(flux)
-            
-            # calculate for the peripheral compartments
-            for i in range(len(transition_rate)):
-                dq_dt[i+2] = flux[i]
+            qc, *qp = q 
+            input = self.dosing_protocol.get_dose(t)
+        elif self.dosing_type == 'Subcutaneous':
+            q0, qc, *qp = q 
+            input = absorption_constant * q0
+        else:
+            raise ValueError('We do not have this type of dosing in this library')
         
-        return dq_dt # the dimension of the solution should be (number_of_compartments, number_of_time_steps)
+        conc_difference = [qc/volume_c - p/vp for p, vp in zip(qp, volume_p)]
+        flux = [k * diff for k, diff in zip(transition_constant, conc_difference)]
 
-    def solve_ODE(self, initial_values, dosing_protocol, transition_rate, elimination_rate, volume_c, volume_q, t_span, t_eval, absorbed = None):
+        dq_dt = [0.0] * len(q)
+
+        if self.dosing_type == 'Bolus':
+            # Calculate for the central compartment
+            dq_dt[0] = input - clearance_rate * qc/volume_c - np.sum(flux)
+
+            # Calculate for the peripheral compartments
+            for i in range(len(transition_constant)):
+                dq_dt[i + 1] = flux[i]
+
+        elif self.dosing_type == 'Subcutaneous':
+            # Calculate for the additional compartment from which the drug is absorbed to the central c
+            dq_dt[0] = self.dosing_protocol.get_dose(t) - input
+            
+            # Calculate for the central compartment
+            dq_dt[1] = input - clearance_rate * qc - np.sum(flux)
+            
+            # Calculate for the peripheral compartments
+            for i in range(len(transition_constant)):
+                dq_dt[i + 2] = flux[i]
+        
+        return dq_dt
+
+    def solve_ODE(self, initial_values, transition_constant, clearance_rate, volume_c, volume_p, t_span, t_eval, absorption_constant=None):
         solution = solve_ivp(
-            fun = lambda t, q: self.ODE(t,q, dosing_protocol, transition_rate,  elimination_rate, volume_c, volume_q, absorbed), 
-            t_span = t_span,
-            y0 = initial_values, 
-            t_eval = t_eval)
+            fun=lambda t, q: self.ODE(t, q, transition_constant, clearance_rate, volume_c, volume_p, absorption_constant),
+            t_span=t_span,
+            y0=initial_values, 
+            t_eval=t_eval)
         
         return solution.y  
         # for the 'Bolus' type: solution[0,:] represents the drug quantity in central compartments; solution[i,:] represents the drug quantity in the ith peripheral compartment.
