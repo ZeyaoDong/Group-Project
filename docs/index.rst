@@ -8,7 +8,11 @@ Welcome to PKmodel-library's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
+
+   model
+   protocol
+   visualiser
 
 
 
