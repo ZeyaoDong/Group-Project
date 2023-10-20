@@ -10,4 +10,4 @@ from .version_info import VERSION_INT, VERSION  # noqa
 # Import main classes
 from .model import PKModel  
 from .protocol import Dosing_Protocol    
-from .visualiser import visualize     
+#from .visualiser import visualize     
