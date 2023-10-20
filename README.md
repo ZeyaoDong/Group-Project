@@ -6,7 +6,7 @@ Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK
 ##Table of contents
 -[Features](#Features)
 -[Installation](#Installation)
--[Usage](#Documentation)
+-[Usage](#Usage)
 -[License](#License)
 -[Contact](#Contact)
 
@@ -33,7 +33,8 @@ pip install pkmodel
 ```
 ------
 
-# Usage: here is an example of how to use pkmodel
+# Usage: 
+here is an example of how to use pkmodel
 ```bash
 import numpy as np
 import matplotlib.plt as plt
@@ -56,15 +57,15 @@ quantity = model.solve_ODE(initial_values, dosing_function.get_dose_function(), 
 p =visualize(model = model, solution = quantity, t_eval = t_eval) # plot the solutions for all compartments with detailed labels
 p.savefig('test_visualization.png')/p.show() #save or show this figure. 
 ```
-For detailed instructions on modules and functions, please see our document: https://pkmodel-library.readthedocs.io/en/latest/
+### For detailed instructions on modules and functions, please see our document: https://pkmodel-library.readthedocs.io/en/latest/
 
 
 # Contact
 For any questions, bug reports, or feature requests, feel free to contact:
-King  email:
-Ryan Demel email:
-Tom Wise email:
-Zeyao Dong email: zeyao.dong@jesus.ox.ac.uk
+King Ifashe, email: ifasheking@gmail.com
+Ryan Demel, email: rdemel99@gmail.com
+Tom Wise, email:
+Zeyao Dong, email: zeyao.dong@jesus.ox.ac.uk
 
 ------
 
