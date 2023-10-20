@@ -4,12 +4,12 @@ Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK
 # Details
 
 ##Table of contents
--[pkmodel.PKModel]
--[pkmodel.PKModel.ODE]
--[visualiser]
--[Features]
--[Installation]
--[Contact]
+-[pkmodel.PKModel](pkmodel.PKMode)
+-[pkmodel.PKModel.ODE](pkmodel.PKModel.ODE)
+-[Visualiser](Visualiser)
+-[Features](Features)
+-[Installation](Installation)
+-[Contact](Contact)
 
 
 ## pkmodel.PKModel(dosing_type, number_of_p_compartments,initial_values)
