@@ -18,7 +18,7 @@ class PKModel:
             raise ValueError('We do not have this type of dosing in this libaray')
 
 
-    def ODE(self, t: float, q: List[float], dosing_protocol, transition_constant: List[float], clearance_rate: float, volume_c: float, volume_p: List[float], absorption_constant: float):
+    def ODE(self, t, q, dosing_protocol, transition_constant: List[float], clearance_rate: float, volume_c: float, volume_p: List[float], absorption_constant: float):
         # check input and set attributes
         if volume_c > 0 :
              self.volume_c = float(volume_c)
