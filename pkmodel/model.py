@@ -36,6 +36,8 @@ class PKModel:
         else:
             raise ValueError("Absorption constant must be greater or equal to zero.")
             
+        self.dosing_protocol = dosing_protocol(t)
+            
         if self.dosing_type == 'Bolus':
             qc, *qp = q 
             input = dosing_protocol(t)
