@@ -57,7 +57,8 @@ quantity = model.solve_ODE(initial_values, dosing_function.get_dose_function(), 
 p =visualize(model = model, solution = quantity, t_eval = t_eval) # plot the solutions for all compartments with detailed labels
 p.savefig('test_visualization.png')/p.show() #save or show this figure. 
 ```
-### For detailed instructions on modules and functions, please see our document: https://pkmodel-library.readthedocs.io/en/latest/
+### Documentation
+For detailed instructions on modules and functions, please see our document: https://pkmodel-library.readthedocs.io/en/latest/
 
 
 # Contact
