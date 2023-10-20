@@ -14,15 +14,15 @@ class ModelTest(unittest.TestCase):
         # Define required parameters for this testing
         dosing_function = Dosing_Protocol(dosing_method = 1, dose_amount = 0, interval = 0) # try no dosing
 
-        transition_rate = [0.1] 
-        elimination_rate = 0.05  
+        transition_constant = [0.1] 
+        clearnace_rate = 0.05  
         volume_c = 1  
-        volume_q = [1] 
+        volume_p = [1] 
         t_span = (0, 10) 
         t_eval = np.linspace(0, 10, 100) 
 
         # Run the ODE solver
-        solution = model.solve_ODE(initial_values, dosing_function.get_dose_function(), transition_rate, elimination_rate, volume_c, volume_q, t_span, t_eval)
+        solution = model.solve_ODE(initial_values, dosing_function.get_dose_function(), transition_constant, clearance_rate, volume_c, volume_p, t_span, t_eval)
 
         self.assertTrue(np.all(solution >= 0) & np.all(solution <= 1))  # there should not be any time steps with either a negative drug quantity (non-physical) or > 1ng drug (mass conservation) 
 
@@ -36,16 +36,16 @@ class ModelTest(unittest.TestCase):
         # Define required parameters for this testing
         dosing_function = Dosing_Protocol(dosing_method = 1, dose_amount = 0, interval = 0) # try no dosing
 
-        transition_rate = [0.1]  
-        elimination_rate = 0.05 
+        transition_constant = [0.1]  
+        clearance_rate = 0.05 
         volume_c = 0.5
-        volume_q = [0.1]
+        volume_p = [0.1]
         t_span = (0, 10) 
         t_eval = np.linspace(0, 10, 100) 
-        absorbed = 0.7
+        absorption_constant = 0.7
 
         # Run the ODE solver
-        solution = model.solve_ODE(initial_values, dosing_function.get_dose_function(), transition_rate, elimination_rate, volume_c, volume_q, t_span, t_eval, absorbed = absorbed)
+        solution = model.solve_ODE(initial_values, dosing_function.get_dose_function(), transition_constant, clearance_rate, volume_c, volume_p, t_span, t_eval, absorption_constant = absorption_constant)
         
         self.assertTrue(np.all(solution >= 0) & np.all(solution <= 1))  # there should not be any time steps with either a negative drug quantity (non-physical) or > 1ng drug (mass conservation) 
 
