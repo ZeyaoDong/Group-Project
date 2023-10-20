@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.integrate import solve_ivp
-from protocol import Dosing_Protocol  # Import the dosing protocol function from protocol.py
+from pkmodel.protocol import Dosing_Protocol  # Import the dosing protocol function from protocol.py
 
 class PKModel:
     def __init__(self, dosing_type, number_of_p_compartments,initial_values):
