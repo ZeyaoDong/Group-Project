@@ -12,10 +12,10 @@ Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK
 
 
 ## Features
--Supports PK models with multi-compartments
--Outputs drug quantity over time in different compartments
--Visualize drug quantity/concentration over time in different compartment
--Can be used to calculate the following variables:
+Supports PK models with multi-compartments/
+Outputs drug quantity over time in different compartments/
+Visualize drug quantity/concentration over time in different compartment/
+Can be used to calculate the following variables:
 + Maximum cooncentration- Cmax
 + Time to reach Cmax
 + Minimum concentration- Cmin
@@ -63,10 +63,10 @@ For detailed instructions on modules and functions, please see our document: htt
 
 # Contact
 For any questions, bug reports, or feature requests, feel free to contact:
-King Ifashe, email: ifasheking@gmail.com
-Ryan Demel, email: rdemel99@gmail.com
-Thomas Wise, email: thomaskennedywise@outlook.com
-Zeyao Dong, email: zeyao.dong@jesus.ox.ac.uk
++ King Ifashe, email: ifasheking@gmail.com
++ Ryan Demel, email: rdemel99@gmail.com
++ Thomas Wise, email: thomaskennedywise@outlook.com
++ Zeyao Dong, email: zeyao.dong@jesus.ox.ac.uk
 
 ------
 
