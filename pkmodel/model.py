@@ -20,9 +20,9 @@ class PKModel:
 
     # define the differential equation for a particular type of dosing
     def ODE(self, t, q, dosing_protocol, transition_rate, elimination_rate, volume_c, volume_q, absorbed):
-        if volume_c > 0 and volume_q > 0:
+        if volume_c > 0 and all(v > 0 for v in volume_q):
             self.volume_c = float(volume_c)
-            self.volume_q = float(volume_q)
+            self.volume_q = list(map(float(volume_q)))
         else:
             raise ValueError("The volume of the compartments must be positive.")
         if transition_rate >= 0:
