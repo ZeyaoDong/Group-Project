@@ -58,7 +58,7 @@ class PKModel:
 
         elif self.dosing_type == 'Subcutaneous':
             # Calculate for the additional compartment from which the drug is absorbed to the central c
-            dq_dt[0] = dosing_prptocol(t) - input
+            dq_dt[0] = dosing_protocol(t) - input
             
             # Calculate for the central compartment
             dq_dt[1] = input - clearance_rate * qc/volume_c - np.sum(flux)
