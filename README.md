@@ -1,7 +1,7 @@
 # 2023 Software Engineering Group Project: pkmodel
 Brief description: `pkmodel` is a Python library for solving Pharmacokinetic (PK) models. It allows users to specify dosing types (Bolus or Subcutaneous), dosing protocols, and customize the number of compartments to suit their needs.
 -----
-# Details
+# Details 
 
 ## Table of contents
 -[Features](#Features)
