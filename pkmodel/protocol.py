@@ -15,7 +15,8 @@ class Dosing_Protocol:
             raise ValueError("Time duration for dosing method 2 has to be positive")
         if duration != 0 and dosing_method == 1:
             raise ValueError("For dosing method 1, no duration argument is needed")
-            
+        if dosing_method != 1 and dosing_method != 2:
+            raise ValueError("Invalid dosing method")
 
     def get_dose(self, t):
         if self.dosing_method == 1:
